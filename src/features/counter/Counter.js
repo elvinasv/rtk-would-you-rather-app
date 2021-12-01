@@ -10,14 +10,14 @@ import {
 } from './counterSlice';
 import styles from './Counter.module.css';
 
-export const Counter = () => {  
-  const count = useSelector(selectCount);  
+export const Counter = () => {
+  const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
 
   const incrementValue = Number(incrementAmount) || 0;
 
-  return ( 
+  return (
     <div>
       <div className={styles.row}>
         <button
