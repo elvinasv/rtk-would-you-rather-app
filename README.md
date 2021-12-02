@@ -6,6 +6,10 @@ The `_DATA.js` file represents a fake database and methods that let you access t
 
 Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
 
+## Demo
+
+Master branch should be deployed on https://ev-would-you-rather.netlify.app (powered by Netlify).
+
 ## Data
 
 There are two types of objects stored in our database:
