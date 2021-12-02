@@ -8,6 +8,8 @@ Using the provided starter code, you'll build a React/Redux front end for the ap
 
 ## Demo
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4c973864-5bcd-489d-af90-2d81e98b0c0a/deploy-status)](https://app.netlify.com/sites/ev-would-you-rather/deploys)
+
 Master branch should be deployed on https://ev-would-you-rather.netlify.app (powered by Netlify).
 
 ## Data

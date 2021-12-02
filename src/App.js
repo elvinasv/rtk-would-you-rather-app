@@ -50,6 +50,7 @@ function App() {
             React Redux
           </a>
         </span>
+        <p>Powered by EV</p>
       </header>
     </div>
   );
