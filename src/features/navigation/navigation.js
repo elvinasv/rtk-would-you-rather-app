@@ -3,7 +3,7 @@ import React from 'react';
 // Navbar collapse on md screens controlled by the Bootstrap v5
 function Navigation() {
   return (
-    <nav className="navbar navbar-expand-md navbar-light bg-light rounded">
+    <nav className="navbar navbar-expand-md navbar-light bg-light">
       <div className="container-fluid">
         <button
           className="navbar-toggler collapsed"
