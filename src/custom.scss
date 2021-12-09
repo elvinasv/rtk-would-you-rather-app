@@ -1,5 +1,14 @@
 // Override default variables before the import
 $border-radius: 8px;
 
+// Custom utility class
+body {
+  min-height: 100vh;
+}
+
+.mw-500 {
+  max-width: 500px !important;
+}
+
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
