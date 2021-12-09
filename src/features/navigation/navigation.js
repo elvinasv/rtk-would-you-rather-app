@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Navbar collapse on md screens controlled by the Bootstrap v5
 function Navigation() {
@@ -19,24 +20,24 @@ function Navigation() {
         >
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link active" href="#test_1">
+              <Link to="/" className="nav-link">
                 Home
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#test_2">
-                New Poll
-              </a>
+              <Link to="/add" className="nav-link">
+                Add question
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#test_3">
+              <Link to="/leaderboard" className="nav-link">
                 Leaderboard
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#test_4">
+              <Link to="/login" className="nav-link">
                 Login
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
