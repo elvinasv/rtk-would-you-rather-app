@@ -15,7 +15,7 @@ function Navigation() {
           <span className="navbar-toggler-icon" />
         </button>
         <div
-          className="navbar-collapse justify-content-md-center"
+          className="navbar-collapse justify-content-md-center collapse"
           id="navbar-burger"
         >
           <ul className="navbar-nav">

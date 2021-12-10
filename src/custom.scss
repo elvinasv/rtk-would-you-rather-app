@@ -1,11 +1,11 @@
 // Override default variables before the import
 $border-radius: 8px;
 
-// Custom utility class
 body {
   min-height: 100vh;
 }
 
+// Custom utility class
 .mw-500 {
   max-width: 500px !important;
 }
