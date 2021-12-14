@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // Navbar collapse on md screens controlled by the Bootstrap v5
 function Navigation() {
   return (
-    <nav className="navbar navbar-expand-md navbar-light bg-light mb-1">
+    <nav className="navbar navbar-expand-md navbar-light bg-light mb-3">
       <div className="container-md">
         <button
           className="navbar-toggler collapsed"

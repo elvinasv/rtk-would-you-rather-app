@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import AvatarImg from 'assets/avatar_bw.svg';
+import AvatarImg from 'assets/avatar_3.svg';
 
 export default function Avatar({
   src = AvatarImg,

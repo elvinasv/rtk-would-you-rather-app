@@ -22,7 +22,7 @@ export default function LoginPage() {
           />
         </div>
         <div className="text-center">
-          <button type="button" className="btn btn-primary px-4">
+          <button type="button" className="btn btn-primary px-5">
             Submit
           </button>
         </div>
