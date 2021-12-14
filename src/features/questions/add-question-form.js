@@ -7,7 +7,7 @@ export default function AddQuestionForm() {
       <h3 className="text-center">Add a new question</h3>
       <div className="card">
         <div className="card-body d-flex flex-column">
-          <h5 className="card-title mb-2">Would you rather...</h5>
+          <h5 className="card-title mb-3">Would you rather...</h5>
           <input
             type="text"
             className="form-control mb-2"
@@ -17,13 +17,13 @@ export default function AddQuestionForm() {
           <p className="text-center mb-2">or</p>
           <input
             type="text"
-            className="form-control mb-2"
+            className="form-control mb-3"
             id="poll-option-two"
             placeholder="Enter second option"
           />
           <button
             type="button"
-            className="btn btn-primary my-2 px-5 align-self-center"
+            className="btn btn-primary my-3 px-5 align-self-center"
           >
             Submit
           </button>
