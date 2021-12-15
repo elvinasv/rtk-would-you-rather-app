@@ -4,7 +4,7 @@ import React from 'react';
 export default function AddQuestionForm() {
   return (
     <div className="container mw-500">
-      <h3 className="text-center">Add a new question</h3>
+      <h2 className="text-center">Add a new question</h2>
       <div className="card">
         <div className="card-body d-flex flex-column">
           <h5 className="card-title mb-3">Would you rather...</h5>

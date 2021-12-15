@@ -7,9 +7,9 @@ import css from './dashboard.module.scss';
 export default function Dashboard() {
   return (
     <div className="container mw-500">
-      <h2 className="text-center mt-3">Would you rather...</h2>
+      <h2 className="text-center">Would you rather...</h2>
       <div className={css.questions}>
-        <div className="card text-center border-0">
+        <div className="card border-0">
           <div className="card-header bg-transparent">
             <ul className="nav nav-tabs card-header-tabs nav-justified">
               <li className="nav-item">
