@@ -1,6 +1,5 @@
 import React from 'react';
 
-// TODO next
 export default function AddQuestionForm() {
   return (
     <div className="container mw-500">
