@@ -1,6 +1,6 @@
 import React from 'react';
 
-import QuestionItem from '../questions/question-item';
+import QuestionItem from '../question/question-item';
 
 import css from './dashboard.module.scss';
 
