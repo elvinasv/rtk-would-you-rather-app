@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from 'features/questions/avatar';
+import Avatar from 'features/question/avatar';
 
 export default function QuestionItem() {
   return (
@@ -13,7 +13,7 @@ export default function QuestionItem() {
         <div className="col-9 p-3 text-start border-start">
           <h5>Would you rather...</h5>
           <p className="card-text">...be a front-end developer or...</p>
-          <a href="/" className="btn btn-primary w-100">
+          <a href="/questions/test123" className="btn btn-primary w-100">
             Answer poll
           </a>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar from 'features/questions/avatar';
+import Avatar from 'features/question/avatar';
 
 export default function LeaderItem() {
   return (
