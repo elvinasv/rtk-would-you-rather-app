@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 // Navbar collapse on md screens controlled by the Bootstrap v5
 function Navigation() {
+  const isLoggedIn = true;
+
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-light mb-3">
       <div className="container-md">
@@ -34,11 +36,24 @@ function Navigation() {
                 Leaderboard
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="/login" className="nav-link">
-                Sign in
-              </Link>
-            </li>
+            {isLoggedIn ? (
+              <>
+                <span className="navbar-text ms-md-4 fw-bold order-md-0 order-first">
+                  Hi, Sarah Edo!
+                </span>
+                <li className="nav-item">
+                  <Link to="/logout" className="nav-link">
+                    Logout
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">
+                  Sign in
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
