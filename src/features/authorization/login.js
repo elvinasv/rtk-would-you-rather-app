@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function LoginPage() {
+  const history = useHistory();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,6 +16,7 @@ export default function LoginPage() {
     console.log(`username: ${username}`);
     console.log(`password: ${password}`);
     console.groupEnd();
+    history.push('/');
   };
 
   return (

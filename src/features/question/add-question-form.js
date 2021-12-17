@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { REQUEST_STATUS } from 'utils.js';
 
 const FORCE_SUBMIT_FAIL = false;
 
 export default function AddQuestionForm() {
+  const history = useHistory();
   const [firstQuestion, setFirstQuestion] = useState('');
   const [secondQuestion, setSecondQuestion] = useState('');
   const [formSubmitStatus, setFormSubmitStatus] = useState(REQUEST_STATUS.idle);
@@ -38,6 +40,7 @@ export default function AddQuestionForm() {
         if (FORCE_SUBMIT_FAIL) throw new Error('Something wen wrong');
         else {
           setFormSubmitStatus(REQUEST_STATUS.idle);
+          history.push('/');
         }
       } catch (err) {
         setFormSubmitStatus(REQUEST_STATUS.failed);
