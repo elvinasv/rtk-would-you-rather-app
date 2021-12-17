@@ -16,7 +16,8 @@ export default function UnansweredQuestion() {
             <input
               className="form-check-input"
               type="radio"
-              id="flexRadioDefault1"
+              id="question-option-1"
+              name="poll-options"
             />
             <label className="form-check-label" htmlFor="question-option-1">
               be a front-end developer
@@ -26,10 +27,10 @@ export default function UnansweredQuestion() {
             <input
               className="form-check-input"
               type="radio"
-              id="question-option-1"
-              checked
+              id="question-option-2"
+              name="poll-options"
             />
-            <label className="form-check-label" htmlFor="flexRadioDefault2">
+            <label className="form-check-label" htmlFor="question-option-2">
               be a back-end developer
             </label>
           </div>
