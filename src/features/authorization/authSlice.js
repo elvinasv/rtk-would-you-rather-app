@@ -20,6 +20,9 @@ const authSlice = createSlice({
       const { username } = action.payload;
       state.authorizedUser = username;
     },
+    logoutUser(state) {
+      state.authorizedUser = null;
+    },
   },
   extraReducers: {
     [authorizeUser.pending]: (state) => {
@@ -37,7 +40,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setAuthorizedUser } = authSlice.actions;
+export const { setAuthorizedUser, logoutUser } = authSlice.actions;
 
 export const isAuthorizedUser = (state) => Boolean(state.auth.authorizedUser);
 

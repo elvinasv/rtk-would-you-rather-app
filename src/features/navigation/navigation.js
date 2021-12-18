@@ -1,14 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import {
   isAuthorizedUser,
   authorizedUsername,
+  logoutUser,
 } from 'features/authorization/authSlice';
 
 // Navbar collapse on md screens controlled by the Bootstrap v5
 function Navigation() {
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector(isAuthorizedUser);
   const username = useSelector(authorizedUsername);
 
@@ -49,9 +51,15 @@ function Navigation() {
                   {`Hi, ${username}!`}
                 </span>
                 <li className="nav-item">
-                  <Link to="/logout" className="nav-link">
+                  <button
+                    type="button"
+                    className="nav-link bg-transparent border-0"
+                    onClick={() => {
+                      dispatch(logoutUser());
+                    }}
+                  >
                     Logout
-                  </Link>
+                  </button>
                 </li>
               </>
             ) : (
