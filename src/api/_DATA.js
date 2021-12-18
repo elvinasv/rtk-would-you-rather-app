@@ -203,3 +203,33 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
     }, 500);
   });
 }
+
+/**
+ * Additional API functions
+ */
+export const DEMO_PASSWORD = 'pass';
+
+const getUserIds = () => Object.keys(users);
+
+const verifyPassword = (username, password) =>
+  Boolean(password === DEMO_PASSWORD && getUserIds().includes(username));
+
+export function _authorizeUser({ username, password }) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (verifyPassword(username, password)) {
+        resolve({ username });
+      } else {
+        reject(new Error('Wrong username or password!'));
+      }
+    }, 500);
+  });
+}
+
+export const mockClient = {
+  authUser: _authorizeUser,
+  saveQuestionAnswer: _saveQuestionAnswer,
+  saveQuestion: _saveQuestion,
+  getUsers: _getUsers,
+  getQuestions: _getQuestions,
+};
