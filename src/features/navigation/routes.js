@@ -6,25 +6,27 @@ import Leaderboard from '../leaderboard/leaderboard';
 import AddQuestionForm from '../question/add-question-form';
 import QuestionPage from '../question/question-page';
 
+import { PrivateRoute } from './private-route';
+
 export default function Routes() {
   return (
     <Switch>
-      <Route exact path="/">
-        <Dashboard />
-      </Route>
       <Route exact path="/login">
         <LoginPage />
       </Route>
       <Route exact path="/leaderboard">
         <Leaderboard />
       </Route>
-      <Route exact path="/add">
+      <PrivateRoute exact path="/">
+        <Dashboard />
+      </PrivateRoute>
+      <PrivateRoute exact path="/add">
         <AddQuestionForm />
-      </Route>
-      <Route exact path="/questions/:questionId">
+      </PrivateRoute>
+      <PrivateRoute exact path="/questions/:questionId">
         <QuestionPage />
-      </Route>
-      <Redirect to="/" />
+      </PrivateRoute>
+      <Redirect to="/login" />
     </Switch>
   );
 }

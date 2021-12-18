@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { mockClient } from 'api/_DATA';
 
-const initialState = { authorizedUser: null, status: 'idle', error: null };
+const initialState = { authorizedUser: null };
 
 export const authorizeUser = createAsyncThunk(
   'auth/authorizeUser',
@@ -25,17 +25,8 @@ const authSlice = createSlice({
     },
   },
   extraReducers: {
-    [authorizeUser.pending]: (state) => {
-      state.status = 'loading';
-    },
     [authorizeUser.fulfilled]: (state, action) => {
-      state.status = 'succeeded';
       state.authorizedUser = action.payload.username || null;
-    },
-    [authorizeUser.rejected]: (state, action) => {
-      state.status = 'failed';
-      state.authorizedUser = null;
-      state.error = action.error.message;
     },
   },
 });
