@@ -1,8 +1,18 @@
 let users = {
+  isabellasmith: {
+    id: 'isabellasmith',
+    name: 'Isabella Smith',
+    avatarURL: '/images/avatar_1.svg',
+    answers: {
+      '8xf0y6ziyjabvozdd253nd': 'optionOne',
+      '6ni6ok3ym7mf1p33lnez': 'optionOne',
+    },
+    questions: [],
+  },
   sarahedo: {
     id: 'sarahedo',
     name: 'Sarah Edo',
-    avatarURL: 'TODO',
+    avatarURL: '/images/avatar_3.svg',
     answers: {
       '8xf0y6ziyjabvozdd253nd': 'optionOne',
       '6ni6ok3ym7mf1p33lnez': 'optionTwo',
@@ -14,7 +24,7 @@ let users = {
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
-    avatarURL: 'TODO',
+    avatarURL: '/images/avatar_4.svg',
     answers: {
       vthrdm985a262al8qx3do: 'optionOne',
       xj352vofupe1dqz9emx13r: 'optionTwo',
@@ -24,7 +34,7 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
-    avatarURL: 'TODO',
+    avatarURL: '/images/avatar_2.svg',
     answers: {
       xj352vofupe1dqz9emx13r: 'optionOne',
       vthrdm985a262al8qx3do: 'optionTwo',
@@ -40,7 +50,7 @@ let questions = {
     author: 'sarahedo',
     timestamp: 1467166872634,
     optionOne: {
-      votes: ['sarahedo'],
+      votes: ['sarahedo', 'isabellasmith'],
       text: 'have horrible short term memory',
     },
     optionTwo: {
@@ -53,7 +63,7 @@ let questions = {
     author: 'johndoe',
     timestamp: 1468479767190,
     optionOne: {
-      votes: [],
+      votes: ['isabellasmith'],
       text: 'become a superhero',
     },
     optionTwo: {

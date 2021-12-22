@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import AvatarImg from 'assets/avatar_3.svg';
-
-export function Avatar({ src = AvatarImg, className: passedClassName }) {
+export function Avatar({
+  src = 'images/avatar_bw.svg',
+  className: passedClassName,
+}) {
   return (
     <img
       src={src}
