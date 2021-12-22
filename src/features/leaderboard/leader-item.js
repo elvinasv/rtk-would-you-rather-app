@@ -12,7 +12,9 @@ import { Avatar } from 'features/question/avatar';
 
 const HIGHLIGHT_TOP_PLACES = 3;
 export function LeaderItem({ userId, place }) {
-  const { name } = useSelector((state) => selectUserById(state, userId));
+  const { name, avatarURL } = useSelector((state) =>
+    selectUserById(state, userId)
+  );
   const answeredScore = useSelector((state) =>
     selectAnsweredCountByUser(state, userId)
   );
@@ -24,7 +26,7 @@ export function LeaderItem({ userId, place }) {
     <div className="card mb-3 border">
       <div className="row g-0">
         <div className="col-3 d-flex flex-column align-items-center p-2 p-sm-3">
-          <Avatar className="rounded-circle" />
+          <Avatar className="rounded-circle" src={avatarURL} />
         </div>
         <div className="col-5 p-2 text-start">
           <h5>{name}</h5>
