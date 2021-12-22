@@ -207,7 +207,7 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
 /**
  * Additional API functions
  */
-export const DEMO_PASSWORD = 'pass';
+export const DEMO_PASSWORD = 'demo';
 
 const getUserIds = () => Object.keys(users);
 
