@@ -1,4 +1,14 @@
 let users = {
+  tomsmith: {
+    id: 'tomsmith',
+    name: 'Tom Smith',
+    avatarURL: 'TODO',
+    answers: {
+      '8xf0y6ziyjabvozdd253nd': 'optionOne',
+      '6ni6ok3ym7mf1p33lnez': 'optionOne',
+    },
+    questions: [],
+  },
   sarahedo: {
     id: 'sarahedo',
     name: 'Sarah Edo',
@@ -40,7 +50,7 @@ let questions = {
     author: 'sarahedo',
     timestamp: 1467166872634,
     optionOne: {
-      votes: ['sarahedo'],
+      votes: ['sarahedo', 'optionOne'],
       text: 'have horrible short term memory',
     },
     optionTwo: {
@@ -53,7 +63,7 @@ let questions = {
     author: 'johndoe',
     timestamp: 1468479767190,
     optionOne: {
-      votes: [],
+      votes: ['optionOne'],
       text: 'become a superhero',
     },
     optionTwo: {
