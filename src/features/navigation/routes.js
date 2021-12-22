@@ -18,9 +18,9 @@ export function Routes() {
       <Route exact path="/404">
         <PageNotFound />
       </Route>
-      <Route exact path="/leaderboard">
+      <PrivateRoute exact path="/leaderboard">
         <Leaderboard />
-      </Route>
+      </PrivateRoute>
       <PrivateRoute exact path="/">
         <Dashboard />
       </PrivateRoute>
