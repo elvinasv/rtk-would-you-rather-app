@@ -9,7 +9,7 @@ import {
 } from 'features/authorization/authSlice';
 
 // Navbar collapse on md screens controlled by the Bootstrap v5
-function Navigation() {
+export function Navigation() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(isAuthorizedUser);
   const username = useSelector(authorizedUsername);
@@ -75,5 +75,3 @@ function Navigation() {
     </nav>
   );
 }
-
-export default Navigation;

@@ -7,8 +7,6 @@ import { Route, Redirect } from 'react-router-dom';
 import { isAuthorizedUser } from 'features/authorization/authSlice';
 
 export const PrivateRoute = ({ children, ...rest }) => {
-  console.log(`PrivateRoute`);
-
   const isAuth = useSelector(isAuthorizedUser);
 
   return (

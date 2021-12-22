@@ -1,9 +1,9 @@
 import React from 'react';
 
-import UnansweredQuestion from './unanswered-question';
-import AnsweredQuestion from './answered-question';
+import { UnansweredQuestion } from './unanswered-question';
+import { AnsweredQuestion } from './answered-question';
 
-export default function QuestionPage() {
+export function QuestionPage() {
   const isAnswered = false;
 
   return (

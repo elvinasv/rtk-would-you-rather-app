@@ -8,7 +8,7 @@ import { REQUEST_STATUS } from 'utils.js';
 
 import { authorizeUser } from './authSlice';
 
-export default function LoginPage() {
+export function LoginPage() {
   const history = useHistory();
   const { state: routerState } = useLocation();
   const dispatch = useDispatch();

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import LeaderItem from './leader-item';
+import { LeaderItem } from './leader-item';
 
-export default function Leaderboard() {
+export function Leaderboard() {
   return (
     <div className="container mw-500">
       <h2 className="text-center">Leaderboard</h2>
