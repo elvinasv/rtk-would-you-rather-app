@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import Avatar from 'features/question/avatar';
+import { Avatar } from 'features/question/avatar';
 import css from './answered-question.module.scss';
 
-export default function AnsweredQuestion() {
+export function AnsweredQuestion() {
   const isFirstVariant = true;
   return (
     <div className="card mb-3 border">

@@ -1,30 +1,36 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import LoginPage from '../authorization/login';
-import Dashboard from '../dashboard/dashboard';
-import Leaderboard from '../leaderboard/leaderboard';
-import AddQuestionForm from '../question/add-question-form';
-import QuestionPage from '../question/question-page';
+import { LoginPage } from '../authorization/login';
+import { Dashboard } from '../dashboard/dashboard';
+import { Leaderboard } from '../leaderboard/leaderboard';
+import { AddQuestionForm } from '../question/add-question-form';
+import { QuestionPage } from '../question/question-page';
+import { PageNotFound } from '../page-not-found/page-not-found';
 
-export default function Routes() {
+import { PrivateRoute } from './private-route';
+
+export function Routes() {
   return (
     <Switch>
-      <Route exact path="/">
-        <Dashboard />
-      </Route>
       <Route exact path="/login">
         <LoginPage />
+      </Route>
+      <Route exact path="/404">
+        <PageNotFound />
       </Route>
       <Route exact path="/leaderboard">
         <Leaderboard />
       </Route>
-      <Route exact path="/add">
+      <PrivateRoute exact path="/">
+        <Dashboard />
+      </PrivateRoute>
+      <PrivateRoute exact path="/add">
         <AddQuestionForm />
-      </Route>
-      <Route exact path="/questions/:questionId">
+      </PrivateRoute>
+      <PrivateRoute path="/questions/:questionId">
         <QuestionPage />
-      </Route>
-      <Redirect to="/" />
+      </PrivateRoute>
+      <Redirect to="404" />
     </Switch>
   );
 }

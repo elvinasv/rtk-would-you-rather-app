@@ -4,10 +4,7 @@ import classNames from 'classnames';
 
 import AvatarImg from 'assets/avatar_3.svg';
 
-export default function Avatar({
-  src = AvatarImg,
-  className: passedClassName,
-}) {
+export function Avatar({ src = AvatarImg, className: passedClassName }) {
   return (
     <img
       src={src}

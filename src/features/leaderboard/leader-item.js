@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Avatar from 'features/question/avatar';
+import { Avatar } from 'features/question/avatar';
 
-export default function LeaderItem() {
+export function LeaderItem() {
   return (
     <div className="card mb-3 border">
       <div className="row g-0">

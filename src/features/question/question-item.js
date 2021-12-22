@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Avatar from 'features/question/avatar';
+import { Avatar } from 'features/question/avatar';
 
-export default function QuestionItem() {
+export function QuestionItem() {
   return (
     <div className="card mb-3 border">
       <div className="card-header text-start">Sarah Edo asks:</div>

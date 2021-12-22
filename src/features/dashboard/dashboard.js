@@ -1,10 +1,10 @@
 import React from 'react';
 
-import QuestionItem from '../question/question-item';
+import { QuestionItem } from '../question/question-item';
 
 import css from './dashboard.module.scss';
 
-export default function Dashboard() {
+export function Dashboard() {
   return (
     <div className="container mw-500">
       <h2 className="text-center">Would you rather...</h2>

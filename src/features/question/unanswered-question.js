@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Avatar from 'features/question/avatar';
+import { Avatar } from 'features/question/avatar';
 import { useHistory } from 'react-router-dom';
 
 const OPTION_VALUE = {
@@ -8,7 +8,7 @@ const OPTION_VALUE = {
   two: 'optionTwo',
 };
 
-export default function UnansweredQuestion() {
+export function UnansweredQuestion() {
   const history = useHistory();
   const [selectedOption, setSelectedOption] = useState(OPTION_VALUE.one);
 

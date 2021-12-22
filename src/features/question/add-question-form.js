@@ -5,7 +5,7 @@ import { REQUEST_STATUS } from 'utils.js';
 
 const FORCE_SUBMIT_FAIL = false;
 
-export default function AddQuestionForm() {
+export function AddQuestionForm() {
   const history = useHistory();
   const [firstQuestion, setFirstQuestion] = useState('');
   const [secondQuestion, setSecondQuestion] = useState('');
