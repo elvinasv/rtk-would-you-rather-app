@@ -4,6 +4,7 @@ import {
   createEntityAdapter,
   createSelector,
 } from '@reduxjs/toolkit';
+import { decimalToPercentString } from 'utils';
 
 import { mockClient } from 'api/_DATA';
 
@@ -38,4 +39,31 @@ export const selectAnsweredQuestionIds = (state) =>
 export const selectUnansweredQuestionIds = createSelector(
   [selectQuestionIds, selectAnsweredQuestionIds],
   (allIds, answeredIds) => allIds.filter((id) => !answeredIds.includes(id))
+);
+
+export const selectQuestionVoteStats = createSelector(
+  [selectQuestionById],
+  (questionEntity) => {
+    const optionOneVotes = questionEntity.optionOne.votes.length;
+    const optionTwoVotes = questionEntity.optionTwo.votes.length;
+
+    return {
+      optionOne: {
+        count: optionOneVotes,
+        percentage: decimalToPercentString(
+          optionOneVotes / (optionOneVotes + optionTwoVotes)
+        ),
+      },
+      optionTwo: {
+        count: optionTwoVotes,
+        percentage: decimalToPercentString(
+          optionTwoVotes / (optionOneVotes + optionTwoVotes)
+        ),
+      },
+      totalVotes: {
+        count: optionOneVotes + optionTwoVotes,
+        percentage: `100%`,
+      },
+    };
+  }
 );

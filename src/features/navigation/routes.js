@@ -30,7 +30,7 @@ export function Routes() {
       <PrivateRoute path="/questions/:questionId">
         <QuestionPage />
       </PrivateRoute>
-      <Redirect to="404" />
+      <Redirect to="/404" />
     </Switch>
   );
 }
