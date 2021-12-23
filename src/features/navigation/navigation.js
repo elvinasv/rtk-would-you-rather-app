@@ -4,15 +4,17 @@ import { Link } from 'react-router-dom';
 
 import {
   isAuthorizedUser,
-  authorizedUsername,
+  authorizedUserId,
   logoutUser,
 } from 'features/authorization/authSlice';
+import { selectUserById } from 'features/users/usersSlice';
 
 // Navbar collapse on md screens controlled by the Bootstrap v5
 export function Navigation() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(isAuthorizedUser);
-  const username = useSelector(authorizedUsername);
+  const authorizedId = useSelector(authorizedUserId);
+  const authUser = useSelector((state) => selectUserById(state, authorizedId));
 
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-light mb-3">
@@ -48,7 +50,7 @@ export function Navigation() {
             {isLoggedIn ? (
               <>
                 <span className="navbar-text ms-md-4 fw-bold order-md-0 order-first">
-                  {`Hi, ${username}!`}
+                  {`Hi, ${authUser.name}!`}
                 </span>
                 <li className="nav-item">
                   <button
