@@ -46,7 +46,7 @@ export function LeaderItem({ userId, place }) {
       {HIGHLIGHT_TOP_PLACES >= place && (
         <span
           className={classNames(
-            'position-absolute end-0 badge badge w-auto x-2 fs-6',
+            'position-absolute end-0 badge badge w-auto fs-6 px-2',
             place === 1 ? `bg-warning text-dark` : 'bg-secondary'
           )}
         >

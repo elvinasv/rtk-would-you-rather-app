@@ -1,4 +1,11 @@
 let users = {
+  testuser: {
+    id: 'testuser',
+    name: 'Jim Jimmy',
+    avatarURL: '/images/avatar_bw.svg',
+    answers: {},
+    questions: [],
+  },
   isabellasmith: {
     id: 'isabellasmith',
     name: 'Isabella Smith',

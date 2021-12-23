@@ -93,7 +93,7 @@ export function LoginPage() {
           )}
           <div className="alert alert-primary p-1 mb-3" role="alert">
             <p className="font-monospace text-primary fs-7 m-1">
-              Demo users: [sarahedo, tylermcginnis, johndoe]
+              Demo users: [sarahedo, tylermcginnis, johndoe, isabellasmith]
             </p>
             <p className="font-monospace text-primary fs-7 m-1">
               Demo password: {DEMO_PASSWORD}
