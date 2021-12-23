@@ -23,7 +23,6 @@ export function Dashboard() {
     [VISIBLE_TAB.UNANSWERED]: unansweredQuestionIds,
   };
 
-  console.log(visibleTab);
   return (
     <div className="container mw-500">
       <h2 className="text-center">Would you rather...</h2>
