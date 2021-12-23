@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import { Avatar } from 'features/question/avatar';
+import { authorizedUserId } from 'features/authorization/authSlice';
 import { selectUserById } from 'features/users/usersSlice';
 import { selectQuestionById, selectQuestionVoteStats } from './questionsSlice';
 import { AnsweredQuestionOption } from './answered-question-option';
@@ -15,6 +16,10 @@ export function AnsweredQuestion({ questionId }) {
   const stats = useSelector((state) =>
     selectQuestionVoteStats(state, questionId)
   );
+  const authorizedId = useSelector(authorizedUserId);
+  const authUser = useSelector((state) => selectUserById(state, authorizedId));
+  const userChoice = authUser.answers[questionId];
+
   const { name: authorName, avatarURL } = author;
   const { optionOne, optionTwo } = question;
 
@@ -33,7 +38,7 @@ export function AnsweredQuestion({ questionId }) {
             votePercentage={stats.optionOne.percentage}
             totalVotes={stats.totalVotes.count}
             isHighlighted={stats.optionOne.count > stats.optionTwo.count}
-            isUserChoice={false}
+            isUserChoice={userChoice === 'optionOne'}
           />
           <AnsweredQuestionOption
             optionText={optionTwo.text}
@@ -41,7 +46,7 @@ export function AnsweredQuestion({ questionId }) {
             votePercentage={stats.optionTwo.percentage}
             totalVotes={stats.totalVotes.count}
             isHighlighted={stats.optionOne.count < stats.optionTwo.count}
-            isUserChoice
+            isUserChoice={userChoice === 'optionTwo'}
           />
         </div>
       </div>

@@ -5,7 +5,6 @@ import {
   createSelector,
 } from '@reduxjs/toolkit';
 import { decimalToPercentString } from 'utils';
-
 import { mockClient } from 'api/_DATA';
 
 const questionAdapter = createEntityAdapter();
