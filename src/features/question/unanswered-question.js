@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
-
-import { Avatar } from 'features/question/avatar';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const OPTION_VALUE = {
-  one: 'optionOne',
-  two: 'optionTwo',
-};
+import { OPTION_VALUE } from 'utils';
+import { Avatar } from 'features/question/avatar';
 
-export function UnansweredQuestion() {
+import { selectUserById } from 'features/users/usersSlice';
+import { selectQuestionById } from './questionsSlice';
+
+export function UnansweredQuestion({ questionId }) {
   const history = useHistory();
+  const question = useSelector((state) =>
+    selectQuestionById(state, questionId)
+  );
+  const author = useSelector((state) => selectUserById(state, question.author));
+
   const [selectedOption, setSelectedOption] = useState(OPTION_VALUE.one);
 
   const onRadioInputChange = (e) => setSelectedOption(e.target.value);
@@ -24,12 +30,15 @@ export function UnansweredQuestion() {
     history.push('/');
   };
 
+  const { name: authorName, avatarURL } = author;
+  const { optionOne, optionTwo } = question;
+
   return (
     <form className="card mb-3 border" onSubmit={handleSubmit}>
-      <div className="card-header text-start">Sarah Edo asks:</div>
+      <div className="card-header text-start">{`${authorName} asks:`}</div>
       <div className="row g-0">
         <div className="col-3 d-flex flex-column align-items-center p-2 p-sm-3">
-          <Avatar className="rounded-circle" />
+          <Avatar src={avatarURL} className="rounded-circle" />
         </div>
         <div className="col-9 p-3 text-start border-start">
           <h5>Would you rather...</h5>
@@ -44,7 +53,7 @@ export function UnansweredQuestion() {
               onChange={onRadioInputChange}
             />
             <label className="form-check-label" htmlFor="question-option-1">
-              be a front-end developer
+              {optionOne.text}
             </label>
           </div>
           <div className="form-check mb-3">
@@ -58,7 +67,7 @@ export function UnansweredQuestion() {
               onChange={onRadioInputChange}
             />
             <label className="form-check-label" htmlFor="question-option-2">
-              be a back-end developer
+              {optionTwo.text}
             </label>
           </div>
           <button type="submit" className="btn btn-primary w-100">
@@ -69,3 +78,7 @@ export function UnansweredQuestion() {
     </form>
   );
 }
+
+UnansweredQuestion.propTypes = {
+  questionId: PropTypes.string,
+};

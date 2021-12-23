@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
+import { OPTION_VALUE } from 'utils';
 import { Avatar } from 'features/question/avatar';
 import { authorizedUserId } from 'features/authorization/authSlice';
 import { selectUserById } from 'features/users/usersSlice';
@@ -38,7 +39,7 @@ export function AnsweredQuestion({ questionId }) {
             votePercentage={stats.optionOne.percentage}
             totalVotes={stats.totalVotes.count}
             isHighlighted={stats.optionOne.count > stats.optionTwo.count}
-            isUserChoice={userChoice === 'optionOne'}
+            isUserChoice={userChoice === OPTION_VALUE.one}
           />
           <AnsweredQuestionOption
             optionText={optionTwo.text}
@@ -46,7 +47,7 @@ export function AnsweredQuestion({ questionId }) {
             votePercentage={stats.optionTwo.percentage}
             totalVotes={stats.totalVotes.count}
             isHighlighted={stats.optionOne.count < stats.optionTwo.count}
-            isUserChoice={userChoice === 'optionTwo'}
+            isUserChoice={userChoice === OPTION_VALUE.two}
           />
         </div>
       </div>

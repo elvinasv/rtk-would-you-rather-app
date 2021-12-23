@@ -8,3 +8,8 @@ export const REQUEST_STATUS = {
 export function decimalToPercentString(x, decimal = 2) {
   return `${Number(x * 100).toFixed(decimal)}%`;
 }
+
+export const OPTION_VALUE = {
+  one: 'optionOne',
+  two: 'optionTwo',
+};
