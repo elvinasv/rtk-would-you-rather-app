@@ -1,33 +1,51 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 
-import { OPTION_VALUE } from 'utils';
+import { ReactComponent as WarningIcon } from 'assets/warning-icon.svg';
+import { OPTION_VALUE, REQUEST_STATUS } from 'utils';
 import { Avatar } from 'features/question/avatar';
-
 import { selectUserById } from 'features/users/usersSlice';
-import { selectQuestionById } from './questionsSlice';
+import { selectQuestionById, addQuestionAnswer } from './questionsSlice';
 
 export function UnansweredQuestion({ questionId }) {
   const history = useHistory();
+  const dispatch = useDispatch();
   const question = useSelector((state) =>
     selectQuestionById(state, questionId)
   );
   const author = useSelector((state) => selectUserById(state, question.author));
 
+  const [formSubmitStatus, setFormSubmitStatus] = useState(REQUEST_STATUS.idle);
   const [selectedOption, setSelectedOption] = useState(OPTION_VALUE.one);
 
-  const onRadioInputChange = (e) => setSelectedOption(e.target.value);
+  const onRadioInputChange = (e) => {
+    setSelectedOption(e.target.value);
+    setFormSubmitStatus(REQUEST_STATUS.idle);
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setFormSubmitStatus(REQUEST_STATUS.loading);
 
-    console.groupCollapsed('UnansweredQuestion: handlesSubmit');
-    console.log(`selectedOption`, selectedOption);
-    console.groupEnd();
+    try {
+      const resultAction = await dispatch(
+        addQuestionAnswer({
+          questionId,
+          answer: selectedOption,
+        })
+      );
 
-    history.push('/');
+      // TODO - dispatch user vote actions
+      unwrapResult(resultAction);
+      setFormSubmitStatus(REQUEST_STATUS.idle);
+      history.push('/');
+    } catch (error) {
+      setFormSubmitStatus(REQUEST_STATUS.failed);
+      console.log('error');
+    }
   };
 
   const { name: authorName, avatarURL } = author;
@@ -70,7 +88,20 @@ export function UnansweredQuestion({ questionId }) {
               {optionTwo.text}
             </label>
           </div>
-          <button type="submit" className="btn btn-primary w-100">
+          {formSubmitStatus === REQUEST_STATUS.failed && (
+            <div
+              className="alert alert-danger py-2 d-flex align-items-center"
+              role="alert"
+            >
+              <WarningIcon width="24" height="24" className="me-2" />
+              <div>Sorry, something went wrong!</div>
+            </div>
+          )}
+          <button
+            type="submit"
+            className="btn btn-primary w-100"
+            disabled={formSubmitStatus === REQUEST_STATUS.loading}
+          >
             Submit
           </button>
         </div>

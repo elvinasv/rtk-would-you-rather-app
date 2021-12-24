@@ -11,16 +11,42 @@ const questionAdapter = createEntityAdapter();
 
 const initialState = questionAdapter.getInitialState();
 
-export const fetchQuestions = createAsyncThunk('questions', async () => {
-  const response = await mockClient.getQuestions();
-  return response;
-});
+export const fetchQuestions = createAsyncThunk(
+  'questions/fetchQuestions',
+  async () => {
+    const response = await mockClient.getQuestions();
+    return response;
+  }
+);
+
+export const addQuestionAnswer = createAsyncThunk(
+  'questions/addQuestionAnswer',
+  async ({ questionId, answer }, { getState }) => {
+    const { authorizedUser } = getState().auth;
+
+    await mockClient.saveQuestionAnswer({
+      authedUser: authorizedUser,
+      qid: questionId,
+      answer,
+    });
+
+    return {
+      authedUser: authorizedUser,
+      qid: questionId,
+      answer,
+    };
+  }
+);
 
 const questionsSlice = createSlice({
   name: 'questions',
   initialState,
   extraReducers: {
     [fetchQuestions.fulfilled]: questionAdapter.setAll,
+    [addQuestionAnswer.fulfilled]: (state, action) => {
+      const { qid, answer, authedUser } = action.payload;
+      state.entities[qid][answer].votes.push(authedUser);
+    },
   },
 });
 
