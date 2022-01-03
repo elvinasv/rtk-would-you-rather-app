@@ -37,6 +37,7 @@ export function LoginPage() {
     const resultAction = await dispatch(authorizeUser({ username, password }));
 
     if (resultAction.payload?.username) {
+      setFormSubmitStatus(REQUEST_STATUS.idle);
       history.push(routerState?.referrer || '/');
     } else {
       setFormSubmitStatus(REQUEST_STATUS.failed);

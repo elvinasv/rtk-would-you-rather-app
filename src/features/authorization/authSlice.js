@@ -35,6 +35,6 @@ export const { setAuthorizedUser, logoutUser } = authSlice.actions;
 
 export const isAuthorizedUser = (state) => Boolean(state.auth.authorizedUser);
 
-export const authorizedUserId = (state) => state.auth.authorizedUser;
+export const selectAuthorizedUserId = (state) => state.auth.authorizedUser;
 
 export default authSlice.reducer;

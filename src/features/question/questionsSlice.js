@@ -4,23 +4,47 @@ import {
   createEntityAdapter,
   createSelector,
 } from '@reduxjs/toolkit';
-
+import { decimalToPercentString } from 'utils';
 import { mockClient } from 'api/_DATA';
 
 const questionAdapter = createEntityAdapter();
 
 const initialState = questionAdapter.getInitialState();
 
-export const fetchQuestions = createAsyncThunk('questions', async () => {
-  const response = await mockClient.getQuestions();
-  return response;
-});
+export const fetchQuestions = createAsyncThunk(
+  'questions/fetchQuestions',
+  async () => {
+    const response = await mockClient.getQuestions();
+    return response;
+  }
+);
+
+export const addQuestionAnswer = createAsyncThunk(
+  'questions/addQuestionAnswer',
+  async ({ questionId, answer, authorizedUser }) => {
+    await mockClient.saveQuestionAnswer({
+      authedUser: authorizedUser,
+      qid: questionId,
+      answer,
+    });
+
+    return {
+      authedUser: authorizedUser,
+      qid: questionId,
+      answer,
+    };
+  }
+);
 
 const questionsSlice = createSlice({
   name: 'questions',
   initialState,
   extraReducers: {
     [fetchQuestions.fulfilled]: questionAdapter.setAll,
+    [addQuestionAnswer.fulfilled]: (state, action) => {
+      const { qid, answer, authedUser } = action.payload;
+      state.entities[qid][answer].votes.push(authedUser);
+    },
   },
 });
 
@@ -38,4 +62,31 @@ export const selectAnsweredQuestionIds = (state) =>
 export const selectUnansweredQuestionIds = createSelector(
   [selectQuestionIds, selectAnsweredQuestionIds],
   (allIds, answeredIds) => allIds.filter((id) => !answeredIds.includes(id))
+);
+
+export const selectQuestionVoteStats = createSelector(
+  [selectQuestionById],
+  (questionEntity) => {
+    const optionOneVotes = questionEntity.optionOne.votes.length;
+    const optionTwoVotes = questionEntity.optionTwo.votes.length;
+
+    return {
+      optionOne: {
+        count: optionOneVotes,
+        percentage: decimalToPercentString(
+          optionOneVotes / (optionOneVotes + optionTwoVotes)
+        ),
+      },
+      optionTwo: {
+        count: optionTwoVotes,
+        percentage: decimalToPercentString(
+          optionTwoVotes / (optionOneVotes + optionTwoVotes)
+        ),
+      },
+      totalVotes: {
+        count: optionOneVotes + optionTwoVotes,
+        percentage: `100%`,
+      },
+    };
+  }
 );
