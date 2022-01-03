@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Avatar } from 'features/question/avatar';
 import { selectQuestionById } from 'features/question/questionsSlice';
 import { selectUserById } from 'features/users/usersSlice';
@@ -24,12 +25,12 @@ export function QuestionItem({ questionId }) {
         <div className="col-9 p-3 text-start border-start">
           <h5>Would you rather...</h5>
           <p className="card-text">{`...${optionOne.text}`}</p>
-          <a
-            href={`/questions/${questionId}`}
+          <Link
+            to={`/questions/${questionId}`}
             className="btn btn-primary w-100"
           >
             Answer poll
-          </a>
+          </Link>
         </div>
       </div>
     </div>
