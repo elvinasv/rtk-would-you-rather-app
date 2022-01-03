@@ -24,11 +24,9 @@ export function QuestionPage() {
 
   return (
     <div className="container mw-500">
-      {isAnswered ? (
-        <AnsweredQuestion questionId={questionId} />
-      ) : (
-        <UnansweredQuestion questionId={questionId} />
-      )}
+      {isAnswered
+        ? isExistingQuestion && <AnsweredQuestion questionId={questionId} />
+        : isExistingQuestion && <UnansweredQuestion questionId={questionId} />}
     </div>
   );
 }

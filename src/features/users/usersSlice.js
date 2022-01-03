@@ -19,12 +19,20 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
 const usersSlice = createSlice({
   name: 'users',
   initialState,
+  reducers: {
+    addUserAnswer(state, action) {
+      const { authorizedUser, questionId, answer } = action.payload;
+      state.entities[authorizedUser].answers[questionId] = answer;
+    },
+  },
   extraReducers: {
     [fetchUsers.fulfilled]: usersAdapter.setAll,
   },
 });
 
 export default usersSlice.reducer;
+
+export const { addUserAnswer } = usersSlice.actions;
 
 const answeredQuestionCount = (userEntity) =>
   (userEntity.answers && Object.keys(userEntity.answers)?.length) || 0;

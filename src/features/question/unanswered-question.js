@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 
 import { ReactComponent as WarningIcon } from 'assets/warning-icon.svg';
 import { OPTION_VALUE, REQUEST_STATUS } from 'utils';
 import { Avatar } from 'features/question/avatar';
-import { selectUserById } from 'features/users/usersSlice';
+import { selectAuthorizedUserId } from 'features/authorization/authSlice';
+import { selectUserById, addUserAnswer } from 'features/users/usersSlice';
 import { selectQuestionById, addQuestionAnswer } from './questionsSlice';
 
 export function UnansweredQuestion({ questionId }) {
-  const history = useHistory();
   const dispatch = useDispatch();
   const question = useSelector((state) =>
     selectQuestionById(state, questionId)
   );
   const author = useSelector((state) => selectUserById(state, question.author));
-
+  const authorizedUser = useSelector(selectAuthorizedUserId);
   const [formSubmitStatus, setFormSubmitStatus] = useState(REQUEST_STATUS.idle);
   const [selectedOption, setSelectedOption] = useState(OPTION_VALUE.one);
 
@@ -31,17 +30,22 @@ export function UnansweredQuestion({ questionId }) {
     setFormSubmitStatus(REQUEST_STATUS.loading);
 
     try {
-      const resultAction = await dispatch(
+      const questionAnswerResult = await dispatch(
         addQuestionAnswer({
+          authorizedUser,
           questionId,
           answer: selectedOption,
         })
       );
+      unwrapResult(questionAnswerResult);
 
-      // TODO - dispatch user vote actions
-      unwrapResult(resultAction);
-      setFormSubmitStatus(REQUEST_STATUS.idle);
-      history.push('/');
+      dispatch(
+        addUserAnswer({
+          authorizedUser,
+          questionId,
+          answer: selectedOption,
+        })
+      );
     } catch (error) {
       setFormSubmitStatus(REQUEST_STATUS.failed);
       console.log('error');

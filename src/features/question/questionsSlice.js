@@ -21,9 +21,7 @@ export const fetchQuestions = createAsyncThunk(
 
 export const addQuestionAnswer = createAsyncThunk(
   'questions/addQuestionAnswer',
-  async ({ questionId, answer }, { getState }) => {
-    const { authorizedUser } = getState().auth;
-
+  async ({ questionId, answer, authorizedUser }) => {
     await mockClient.saveQuestionAnswer({
       authedUser: authorizedUser,
       qid: questionId,

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import {
   isAuthorizedUser,
-  authorizedUserId,
+  selectAuthorizedUserId,
   logoutUser,
 } from 'features/authorization/authSlice';
 import { selectUserById } from 'features/users/usersSlice';
@@ -13,7 +13,7 @@ import { selectUserById } from 'features/users/usersSlice';
 export function Navigation() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(isAuthorizedUser);
-  const authorizedId = useSelector(authorizedUserId);
+  const authorizedId = useSelector(selectAuthorizedUserId);
   const authUser = useSelector((state) => selectUserById(state, authorizedId));
 
   return (

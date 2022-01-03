@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { OPTION_VALUE } from 'utils';
 import { Avatar } from 'features/question/avatar';
-import { authorizedUserId } from 'features/authorization/authSlice';
+import { selectAuthorizedUserId } from 'features/authorization/authSlice';
 import { selectUserById } from 'features/users/usersSlice';
 import { selectQuestionById, selectQuestionVoteStats } from './questionsSlice';
 import { AnsweredQuestionOption } from './answered-question-option';
@@ -17,7 +17,7 @@ export function AnsweredQuestion({ questionId }) {
   const stats = useSelector((state) =>
     selectQuestionVoteStats(state, questionId)
   );
-  const authorizedId = useSelector(authorizedUserId);
+  const authorizedId = useSelector(selectAuthorizedUserId);
   const authUser = useSelector((state) => selectUserById(state, authorizedId));
   const userChoice = authUser.answers[questionId];
 
