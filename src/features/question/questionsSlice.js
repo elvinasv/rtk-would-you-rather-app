@@ -4,7 +4,7 @@ import {
   createEntityAdapter,
   createSelector,
 } from '@reduxjs/toolkit';
-import { decimalToPercentString } from 'utils';
+import { decimalToPercentString, REQUEST_STATUS } from 'utils';
 import { mockClient } from 'api/_DATA';
 import { selectUserById } from 'features/users/usersSlice';
 
@@ -13,7 +13,9 @@ const questionAdapter = createEntityAdapter({
   sortComparer: (a, b) => b.timestamp - a.timestamp,
 });
 
-const initialState = questionAdapter.getInitialState();
+const initialState = questionAdapter.getInitialState({
+  status: REQUEST_STATUS.idle,
+});
 
 export const fetchQuestions = createAsyncThunk(
   'questions/fetchQuestions',
@@ -57,7 +59,16 @@ const questionsSlice = createSlice({
   name: 'questions',
   initialState,
   extraReducers: {
-    [fetchQuestions.fulfilled]: questionAdapter.setAll,
+    [fetchQuestions.pending]: (state) => {
+      state.status = REQUEST_STATUS.loading;
+    },
+    [fetchQuestions.rejected]: (state) => {
+      state.status = REQUEST_STATUS.failed;
+    },
+    [fetchQuestions.fulfilled]: (state, action) => {
+      state.status = REQUEST_STATUS.succeeded;
+      questionAdapter.setAll(state, action.payload);
+    },
     [addQuestion.fulfilled]: questionAdapter.addOne,
     [addQuestionAnswer.fulfilled]: (state, action) => {
       const { qid, answer, authedUser } = action.payload;
