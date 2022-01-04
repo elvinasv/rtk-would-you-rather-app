@@ -24,6 +24,10 @@ const usersSlice = createSlice({
       const { authorizedUser, questionId, answer } = action.payload;
       state.entities[authorizedUser].answers[questionId] = answer;
     },
+    addUserQuestion(state, action) {
+      const { authorizedUser, questionId } = action.payload;
+      state.entities[authorizedUser].questions.push(questionId);
+    },
   },
   extraReducers: {
     [fetchUsers.fulfilled]: usersAdapter.setAll,
@@ -32,7 +36,7 @@ const usersSlice = createSlice({
 
 export default usersSlice.reducer;
 
-export const { addUserAnswer } = usersSlice.actions;
+export const { addUserAnswer, addUserQuestion } = usersSlice.actions;
 
 const answeredQuestionCount = (userEntity) =>
   (userEntity.answers && Object.keys(userEntity.answers)?.length) || 0;

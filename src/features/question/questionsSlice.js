@@ -19,6 +19,19 @@ export const fetchQuestions = createAsyncThunk(
   }
 );
 
+export const addQuestion = createAsyncThunk(
+  'questions/addQuestion',
+  async ({ authorizedUser, optionOneText, optionTwoText }) => {
+    const response = await mockClient.saveQuestion({
+      author: authorizedUser,
+      optionOneText,
+      optionTwoText,
+    });
+
+    return response;
+  }
+);
+
 export const addQuestionAnswer = createAsyncThunk(
   'questions/addQuestionAnswer',
   async ({ questionId, answer, authorizedUser }) => {
@@ -41,6 +54,7 @@ const questionsSlice = createSlice({
   initialState,
   extraReducers: {
     [fetchQuestions.fulfilled]: questionAdapter.setAll,
+    [addQuestion.fulfilled]: questionAdapter.addOne,
     [addQuestionAnswer.fulfilled]: (state, action) => {
       const { qid, answer, authedUser } = action.payload;
       state.entities[qid][answer].votes.push(authedUser);

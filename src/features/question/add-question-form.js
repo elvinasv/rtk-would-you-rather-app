@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 import { REQUEST_STATUS } from 'utils.js';
-
-const FORCE_SUBMIT_FAIL = false;
+import { addQuestion } from 'features/question/questionsSlice';
+import { selectAuthorizedUserId } from 'features/authorization/authSlice';
+import { addUserQuestion } from 'features/users/usersSlice';
 
 export function AddQuestionForm() {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const authorizedUser = useSelector(selectAuthorizedUserId);
+
   const [firstQuestion, setFirstQuestion] = useState('');
   const [secondQuestion, setSecondQuestion] = useState('');
   const [formSubmitStatus, setFormSubmitStatus] = useState(REQUEST_STATUS.idle);
@@ -25,23 +31,31 @@ export function AddQuestionForm() {
     setFormSubmitStatus(REQUEST_STATUS.idle);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (canSubmit) {
       try {
         setFormSubmitStatus(REQUEST_STATUS.loading);
 
-        console.groupCollapsed('AddQuestionForm: handleSubmit');
-        console.log('firstQuestion: ', firstQuestion);
-        console.log('secondQuestion: ', secondQuestion);
-        console.groupEnd();
+        const resultAction = await dispatch(
+          addQuestion({
+            authorizedUser,
+            optionOneText: firstQuestion,
+            optionTwoText: secondQuestion,
+          })
+        );
+        const originalPromiseResult = unwrapResult(resultAction);
 
-        if (FORCE_SUBMIT_FAIL) throw new Error('Something wen wrong');
-        else {
-          setFormSubmitStatus(REQUEST_STATUS.idle);
-          history.push('/');
-        }
+        dispatch(
+          addUserQuestion({
+            authorizedUser,
+            questionId: originalPromiseResult.id,
+          })
+        );
+
+        setFormSubmitStatus(REQUEST_STATUS.idle);
+        history.push('/');
       } catch (err) {
         setFormSubmitStatus(REQUEST_STATUS.failed);
         console.log(`Failed to submit the data:`, err);
