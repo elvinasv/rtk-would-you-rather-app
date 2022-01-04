@@ -7,17 +7,26 @@ import { selectQuestionById } from 'features/question/questionsSlice';
 import { selectUserById } from 'features/users/usersSlice';
 
 export function QuestionItem({ questionId }) {
-  const { author: authorId, optionOne } = useSelector((state) =>
-    selectQuestionById(state, questionId)
-  );
+  const {
+    author: authorId,
+    optionOne,
+    timestamp,
+  } = useSelector((state) => selectQuestionById(state, questionId));
 
   const { name: authorName, avatarURL } = useSelector((state) =>
     selectUserById(state, authorId)
   );
 
+  const postedDate = new Date(timestamp).toLocaleDateString();
+
   return (
     <div className="card mb-3 border">
-      <div className="card-header text-start">{`${authorName} asks:`}</div>
+      <div className="card-header text-start d-flex justify-content-between">
+        <p className="mb-0 me-3">{`${authorName} asks:`}</p>
+        <p className="text-end mb-0">
+          <small className="text-muted">{postedDate}</small>
+        </p>
+      </div>
       <div className="row g-0">
         <div className="col-3 d-flex flex-column align-items-center p-2 p-sm-3">
           <Avatar className="rounded-circle" src={avatarURL} />

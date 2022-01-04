@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
+
 import { QuestionList } from 'features/question/question-list';
 import {
   selectAnsweredQuestionIds,
   selectUnansweredQuestionIds,
 } from 'features/question/questionsSlice';
+import { selectAuthorizedUserId } from 'features/authorization/authSlice';
 import css from './dashboard.module.scss';
 
 const VISIBLE_TAB = {
@@ -14,9 +16,13 @@ const VISIBLE_TAB = {
 };
 export function Dashboard() {
   const [visibleTab, setVisibleTab] = useState(VISIBLE_TAB.UNANSWERED);
-
-  const answeredQuestionIds = useSelector(selectAnsweredQuestionIds);
-  const unansweredQuestionIds = useSelector(selectUnansweredQuestionIds);
+  const authorizedId = useSelector(selectAuthorizedUserId);
+  const answeredQuestionIds = useSelector((state) =>
+    selectAnsweredQuestionIds(state, authorizedId)
+  );
+  const unansweredQuestionIds = useSelector((state) =>
+    selectUnansweredQuestionIds(state, authorizedId)
+  );
 
   const questionIdsByTab = {
     [VISIBLE_TAB.ANSWERED]: answeredQuestionIds,

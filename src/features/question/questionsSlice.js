@@ -6,8 +6,12 @@ import {
 } from '@reduxjs/toolkit';
 import { decimalToPercentString } from 'utils';
 import { mockClient } from 'api/_DATA';
+import { selectUserById } from 'features/users/usersSlice';
 
-const questionAdapter = createEntityAdapter();
+const questionAdapter = createEntityAdapter({
+  // Sort in descending order; newer -> older (in timestamp term)
+  sortComparer: (a, b) => b.timestamp - a.timestamp,
+});
 
 const initialState = questionAdapter.getInitialState();
 
@@ -70,12 +74,21 @@ export const {
   selectIds: selectQuestionIds,
 } = questionAdapter.getSelectors((state) => state.questions);
 
-export const selectAnsweredQuestionIds = (state) =>
-  Object.keys(state.users.entities?.[state.auth.authorizedUser]?.answers || {});
+export const selectAnsweredQuestionIds = createSelector(
+  [selectQuestionIds, selectUserById],
+  (allQuestionIds, authorizedUserEntity) => {
+    const answeredIds = Object.keys(authorizedUserEntity.answers || {});
+    // Filtering to have answered ids in newer -> older order.
+    return allQuestionIds.filter((id) => answeredIds.includes(id));
+  }
+);
 
 export const selectUnansweredQuestionIds = createSelector(
-  [selectQuestionIds, selectAnsweredQuestionIds],
-  (allIds, answeredIds) => allIds.filter((id) => !answeredIds.includes(id))
+  [selectQuestionIds, selectUserById],
+  (allQuestionIds, authorizedUserEntity) => {
+    const answeredIds = Object.keys(authorizedUserEntity.answers || {});
+    return allQuestionIds.filter((id) => !answeredIds.includes(id));
+  }
 );
 
 export const selectQuestionVoteStats = createSelector(
