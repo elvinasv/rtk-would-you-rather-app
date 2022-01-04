@@ -22,3 +22,7 @@ Master branch should be deployed on https://ev-would-you-rather.netlify.app (pow
 1. `npm install` - install node modules
 2. `npm start` - run application on development environment
 3. App should be running on `http://localhost:3000` or other available port.
+
+## Limitations
+
+Due to the Mock API, the app might not work as expected when re-opening on a new tab after creating a new question.

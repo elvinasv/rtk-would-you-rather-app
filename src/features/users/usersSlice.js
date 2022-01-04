@@ -6,10 +6,13 @@ import {
 } from '@reduxjs/toolkit';
 
 import { mockClient } from 'api/_DATA';
+import { REQUEST_STATUS } from 'utils';
 
 const usersAdapter = createEntityAdapter();
 
-const initialState = usersAdapter.getInitialState();
+const initialState = usersAdapter.getInitialState({
+  status: REQUEST_STATUS.idle,
+});
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   const response = await mockClient.getUsers();
@@ -30,7 +33,16 @@ const usersSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchUsers.fulfilled]: usersAdapter.setAll,
+    [fetchUsers.pending]: (state) => {
+      state.status = REQUEST_STATUS.loading;
+    },
+    [fetchUsers.rejected]: (state) => {
+      state.status = REQUEST_STATUS.failed;
+    },
+    [fetchUsers.fulfilled]: (state, action) => {
+      state.status = REQUEST_STATUS.succeeded;
+      usersAdapter.setAll(state, action.payload);
+    },
   },
 });
 
