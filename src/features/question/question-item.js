@@ -21,7 +21,7 @@ export function QuestionItem({ questionId }) {
 
   return (
     <div className="card mb-3 border">
-      <div className="card-header text-start d-flex justify-content-between">
+      <div className="card-header d-flex justify-content-between">
         <p className="mb-0 me-3">{`${authorName} asks:`}</p>
         <p className="text-end mb-0">
           <small className="text-muted">{postedDate}</small>
